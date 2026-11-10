@@ -1,0 +1,34 @@
+// Independent check that every EVM contract Proviso adds runs exactly the source in this repository: Arkhai's
+// TrustedOracleArbiter, ERC20EscrowObligation and StringObligation (vendor/alkahest, unmodified, built with the EAS and
+// OpenZeppelin commits Alkahest pins), the ProvisoOracle and the test dollar. EAS itself was verified in JspIIV/seal.
+// GenLayer Chain's explorer cannot verify source yet, so this compiles each with Alkahest's settings (solc 0.8.27, viaIR,
+// 200 runs), reads the code from the chain and compares byte for byte. Immutable values are set at deployment, so
+// their slots are taken from the chain and printed.
+//   node scripts/verify_evm.mjs
+import { JsonRpcProvider } from 'ethers';
+import { execSync } from 'child_process';
+import fs from 'fs'; import path from 'path';
+import { compile, ROOT } from './compile.mjs';
+
+const chain = new JsonRpcProvider('https://rpc.testnet-chain.genlayer.com', 4221);
+const dep = JSON.parse(fs.readFileSync(path.join(ROOT, 'deployment.json'), 'utf8'));
+const TARGETS = [['trusted_oracle_arbiter', 'TrustedOracleArbiter'], ['erc20_escrow', 'ERC20EscrowObligation'],
+  ['string_obligation', 'StringObligation'], ['oracle', 'ProvisoOracle'], ['testusd', 'TestUSD']];
+let all = true;
+const commit = execSync('git rev-parse HEAD', { cwd: path.join(ROOT, 'vendor', 'alkahest') }).toString().trim();
+console.log('Alkahest at', commit.slice(0, 12), '| solc 0.8.27, viaIR, 200 runs | chain 4221');
+for (const [key, name] of TARGETS) {
+  const c = compile(name);
+  const live = (await chain.getCode(dep[key].address)).slice(2).toLowerCase();
+  const filled = c.deployed.split('');
+  const fixed = [];
+  for (const spots of Object.values(c.refs)) for (const { start, length } of spots) {
+    for (let i = start * 2; i < (start + length) * 2; i++) filled[i] = live[i];
+    fixed.push('immutable 0x' + live.slice(start * 2, (start + length) * 2).slice(-40));
+  }
+  const same = filled.join('') === live;
+  all = all && same;
+  console.log(`${same ? 'MATCH    ' : 'DIFFERENT'} ${name.padEnd(30)} ${dep[key].address}  ${[...new Set(fixed)].slice(0, 2).join(', ')}`);
+}
+console.log(all ? 'every contract on chain is the source in this repository' : 'at least one contract differs');
+process.exit(all ? 0 : 1);

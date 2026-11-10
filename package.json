@@ -1,0 +1,21 @@
+{
+  "name": "proviso",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Proviso: Internet Court as the oracle of Arkhai Alkahest escrows. A GenLayer court decides whether a delivery meets the escrow's criteria and records it on Alkahest's own TrustedOracleArbiter, no key",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JspIIV/proviso.git"
+  },
+  "scripts": {
+    "test": "python tests/proviso_rules.py"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.5.0",
+    "ethers": "^6.17.0",
+    "genlayer-js": "2.0.0-rc.2",
+    "solc": "^0.8.36"
+  }
+}

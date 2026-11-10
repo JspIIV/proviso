@@ -1,0 +1,41 @@
+{
+  "network": "genlayer testnet bradbury phase 2",
+  "chain_id": 4221,
+  "eas": {
+    "address": "0x9052b042dcbFda11312d32F27FB4d1b5046d9ACb",
+    "note": "official EAS, deployed and verified in JspIIV/seal"
+  },
+  "schema_registry": {
+    "address": "0xf3516452C013058F6E921c00C567A56a4E800ad8",
+    "note": "official SchemaRegistry, deployed and verified in JspIIV/seal"
+  },
+  "trusted_oracle_arbiter": {
+    "address": "0x2B67aC1083c1EC26471C2f92902822DD62Ea6426",
+    "tx": "0xaaac95c9d38ecf14db53f1eb9d85f74b5f52476e7a9e3489fe8babb9b6efc1a3"
+  },
+  "compiler": "0.8.27+commit.40a35a09.Emscripten.clang",
+  "erc20_escrow": {
+    "address": "0xE3dc3e601b72D362836bF0a21f6D0bC6382a0650",
+    "tx": "0x95849d9472b58fc4d30158ad3330ddd6c916d6c21336b6124ab0f13e4eab9d1d"
+  },
+  "string_obligation": {
+    "address": "0x6c0746A6b1e574F7C3a2D93A4ef76c06bc64A226",
+    "tx": "0x5f6a8c8ce59aa60d0e74ca0403386a678eabceebe627bd7a38dfcf37c5c61b44"
+  },
+  "testusd": {
+    "address": "0xe2D23E4EF0B6A74504D05f4a8D7ADb40744Cc0F6",
+    "tx": "0x9bd252632cac214add0218fc8a5043185bb7cedcde90c1c6b4851b870eac6ca4"
+  },
+  "oracle": {
+    "address": "0xdFb512DceDaFe78b69c5712b72581492a5194BB0",
+    "tx": "0x0ba66a493c361e220033eb27a2727bb7e719174ff1f3c5f53fdac129c86b1187"
+  },
+  "proviso": {
+    "address": "0x2e94D7DdE56E373114f43744889E8E7c0e3015B3",
+    "tx": "0xac050914378ba3acdee66455d34dae9f5624366734276ee27f43e14a4e5879cc"
+  },
+  "address": "0x2e94D7DdE56E373114f43744889E8E7c0e3015B3",
+  "tx": "0xac050914378ba3acdee66455d34dae9f5624366734276ee27f43e14a4e5879cc",
+  "deployed_at": "2026-11-10T15:46:35.309Z",
+  "wired": true
+}
